@@ -1,4 +1,10 @@
-<script setup></script>
+<script setup>
+import { getCategoryAPI } from '@/api/test'
+;async () => {
+  const res = await getCategoryAPI()
+  console.log(res)
+}
+</script>
 
 <template>
   <el-button style="--el-button-bg-color: red">Primary</el-button>
