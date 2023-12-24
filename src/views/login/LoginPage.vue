@@ -5,25 +5,37 @@ const isRegister = ref(true)
 </script>
 
 <template>
+  <!-- 
+        el-row表示一行，一行分成24份
+        el-col表示列
+        (1):span='12' 表示在一行中，占12份（50%）
+        (2):pan='6'   表示在一行中，占6份（25%）
+        (3):offset="3"  代表在一行中，左侧margin份数
+
+        el-form 整个表单组件
+        el-form-item 表单的一行（一个表单域）
+        el-input 表单元素（输入框） 
+
+     -->
   <el-row class="login-page">
     <el-col :span="12" class="bg"></el-col>
     <el-col :span="6" :offset="3" class="form">
-      <!-- 注册的表单 -->
+      <!-- 注册相关表单 -->
       <el-form ref="form" size="large" autocomplete="off" v-if="isRegister">
-        <el-form-item class="title">
+        <el-form-item>
           <h1>注册</h1>
         </el-form-item>
-        <el-form-item label="用户名">
+        <el-form-item>
           <el-input :prefix-icon="User" placeholder="请输入用户名"></el-input>
         </el-form-item>
-        <el-form-item label="密码">
+        <el-form-item>
           <el-input
             :prefix-icon="Lock"
             type="password"
             placeholder="请输入密码"
           ></el-input>
         </el-form-item>
-        <el-form-item label="再次确认密码">
+        <el-form-item>
           <el-input
             :prefix-icon="Lock"
             type="password"
@@ -41,7 +53,7 @@ const isRegister = ref(true)
           </el-link>
         </el-form-item>
       </el-form>
-      <!-- 登录的表单 -->
+      <!-- 登陆相关表单 -->
       <el-form ref="form" size="large" autocomplete="off" v-else>
         <el-form-item>
           <h1>登录</h1>
@@ -80,7 +92,7 @@ const isRegister = ref(true)
 
 <style lang="scss" scoped>
 .login-page {
-  height: 100hv;
+  height: 100vh;
   background-color: #fff;
   .bg {
     background:
@@ -92,7 +104,7 @@ const isRegister = ref(true)
     display: flex;
     flex-direction: column;
     justify-content: center;
-    user-select: none; //di
+    user-select: none;
     .title {
       margin: 0 auto;
     }
