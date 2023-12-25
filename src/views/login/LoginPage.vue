@@ -1,6 +1,7 @@
 <script setup>
 import { User, Lock } from '@element-plus/icons-vue'
 import { ref } from 'vue'
+import { userRegisterService } from '@/api/user'
 const isRegister = ref(true)
 const formModel = ref({
   username: '',
@@ -44,7 +45,10 @@ const rules = {
 const form = ref()
 const register = async () => {
   await form.value.validate()
-  console.log('开始注册请求')
+  await userRegisterService(formModel.value)
+  ElMessage.success('注册成功')
+  // 切换到登录
+  isRegister.value = false
 }
 </script>
 
