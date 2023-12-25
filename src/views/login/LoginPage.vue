@@ -1,7 +1,9 @@
 <script setup>
 import { User, Lock } from '@element-plus/icons-vue'
-import { ref } from 'vue'
-import { userRegisterService } from '@/api/user'
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { userRegisterService, userLoginService } from '@/api/user'
+import { useUserStore } from '@/stores'
 const isRegister = ref(true)
 const formModel = ref({
   username: '',
@@ -50,6 +52,23 @@ const register = async () => {
   // 切换到登录
   isRegister.value = false
 }
+//登录事件
+const userStore = useUserStore()
+const router = useRouter()
+const login = async () => {
+  await form.value.validate()
+  const res = await userLoginService(formModel.value)
+  userStore.setToken(res.data.token) //存储登录时后台给的token值
+  ElMessage.success('登录成功')
+  router.push('/')
+}
+watch(isRegister, () => {
+  formModel.value = {
+    username: '',
+    password: '',
+    repassword: ''
+  }
+})
 </script>
 
 <template>
@@ -157,7 +176,7 @@ const register = async () => {
             class="button"
             type="primary"
             auto-insert-space
-            @click="register"
+            @click="login"
             >登录</el-button
           >
         </el-form-item>
